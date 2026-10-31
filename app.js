@@ -4,7 +4,9 @@
    in the UI code or in localStorage.
    ========================================================================== */
 
-const API_BASE = (window.SHKOLO_API_BASE || '').replace(/\/+$/, '');
+// `config.js` (served by a Pages Function) provides window.SHKOLO_API_BASE.
+// If it is missing — e.g. opened straight from disk — fall back to same-origin.
+const API_BASE = String(window.SHKOLO_API_BASE || '').replace(/\/+$/, '');
 const WEEK_KEY = 'shkolo_ui_week';
 
 const $ = (sel) => document.querySelector(sel);

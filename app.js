@@ -4,9 +4,17 @@
    in the UI code or in localStorage.
    ========================================================================== */
 
-// `config.js` (served by a Pages Function) provides window.SHKOLO_API_BASE.
-// If it is missing — e.g. opened straight from disk — fall back to same-origin.
-const API_BASE = String(window.SHKOLO_API_BASE || '').replace(/\/+$/, '');
+// Always talk to our own origin. Pages Functions proxy /api/* and the data
+// paths (/grades, /schedule, /raw/...) to the Worker, which keeps the session
+// cookie first-party. Calling the Worker host directly would be cross-site and
+// the browser would refuse to store its cookie.
+//
+// window.SHKOLO_API_BASE is only used when the page is served without the
+// Pages Functions (e.g. static hosting), as a last resort.
+const SAME_ORIGIN = true;
+const API_BASE = SAME_ORIGIN
+  ? ''
+  : String(window.SHKOLO_API_BASE || '').replace(/\/+$/, '');
 const WEEK_KEY = 'shkolo_ui_week';
 
 const $ = (sel) => document.querySelector(sel);

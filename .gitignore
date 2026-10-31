@@ -1,0 +1,17 @@
+# Worker repo (the API behind this UI)
+shkolo-api/
+
+# Dependencies
+node_modules/
+
+# Local dev vars (contains environment values)
+.dev.vars
+
+# Build output
+dist/
+.wrangler/
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini

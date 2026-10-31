@@ -1,4 +1,4 @@
-// Top-level proxy so the UI can call /grades, /schedule, /raw/... directly.
-import { onRequest as proxy } from './api/_proxy.js';
+// Root catch-all: /grades, /schedule, /raw/... (any path that is not a static asset)
+import { onRequest as proxy } from './_proxy-core.js';
 
 export const onRequest = proxy;

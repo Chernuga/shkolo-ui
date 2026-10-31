@@ -44,6 +44,15 @@ function setLoginMsg(text, kind) {
 }
 
 async function api(path, options = {}) {
+  // Absolute URLs would be cross-site; the browser then drops the session
+  // cookie and login appears to "succeed" but no session exists.
+  if (/^https?:\/\//i.test(API_BASE)) {
+    throw new Error(
+      'API is configured cross-origin (' + API_BASE + '). The session cookie would be ' +
+      'blocked by the browser. Clear the site cache / reload.'
+    );
+  }
+
   const res = await fetch(API_BASE + path, {
     credentials: 'include',
     ...options,
